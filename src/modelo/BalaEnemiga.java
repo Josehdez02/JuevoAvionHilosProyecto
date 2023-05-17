@@ -8,14 +8,12 @@ import java.util.Random;
 
 public class BalaEnemiga extends Thread{
     private ImageIcon image2;
-    int contadorIntersepciones=0;
-    int contadorVidas=0;
+    int contadorIntercepciones=0;
+    int contadorPuntos=0;
     private final VentanaJuego vistJuego;
-    private final BalaNave coor;
 
-    public BalaEnemiga(VentanaJuego vistJuego,BalaNave coor){
+    public BalaEnemiga(VentanaJuego vistJuego){
         this.vistJuego=vistJuego;
-        this.coor=coor;
         ImageIcon originalImage2 = new ImageIcon("src/imagen2.png");
         Image scaledImage2 = originalImage2.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         image2 = new ImageIcon(scaledImage2);
@@ -81,10 +79,9 @@ public class BalaEnemiga extends Thread{
                 r4 = new Rectangle(x4, y4, 50, 50);
                 Rectangle r5 = new Rectangle(Variables.x5, Variables.y5, 50, 50);
                 if (r1.intersects(r2) || r1.intersects(r3) || r1.intersects(r4)) {
-                    contadorIntersepciones ++;
-                    vistJuego.counterLabel.setText(String.valueOf(contadorIntersepciones));
-                    System.out.println(contadorIntersepciones);
-                }if (contadorIntersepciones>=100){
+                    contadorIntercepciones ++;
+                    vistJuego.counterLabel.setText(String.valueOf(contadorIntercepciones));
+                }if (contadorIntercepciones>=100){
                     int option = JOptionPane.showOptionDialog(null, "Fin del juego", "Juego terminado", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
                     if (option == JOptionPane.OK_OPTION) {
                         System.exit(0);
@@ -92,19 +89,25 @@ public class BalaEnemiga extends Thread{
                 }else if (r5.intersects(r2)){
                     chocoR2=true;
                     vistJuego.panel.remove(label2);
-                    contadorVidas++;
+                    contadorPuntos++;
 
-                    vistJuego.counterLabel3.setText(String.valueOf(contadorVidas));
+                    vistJuego.counterLabel3.setText(String.valueOf(contadorPuntos));
                 } else if (r5.intersects(r3)) {
                     vistJuego.panel.remove(label3);
                     chocoR3=true;
-                    contadorVidas++;
-                    vistJuego.counterLabel3.setText(String.valueOf(contadorVidas));
+                    contadorPuntos++;
+                    vistJuego.counterLabel3.setText(String.valueOf(contadorPuntos));
                 } else if (r5.intersects(r4)) {
                     vistJuego.panel.remove(label4);
                     chocoR4=true;
-                    contadorVidas++;
-                    vistJuego.counterLabel3.setText(String.valueOf(contadorVidas));
+                    contadorPuntos++;
+                    vistJuego.counterLabel3.setText(String.valueOf(contadorPuntos));
+                }
+                if (contadorPuntos==15){
+                    int option = JOptionPane.showOptionDialog(null, "YOU WIN!!!", "Juego terminado", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                    if (option == JOptionPane.OK_OPTION) {
+                        System.exit(0);
+                    }
                 }
                 try {
                     Thread.sleep(50);

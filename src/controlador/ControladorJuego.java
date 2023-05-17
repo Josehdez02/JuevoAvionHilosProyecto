@@ -41,13 +41,6 @@ public class ControladorJuego implements KeyListener {
         vistJuego.label1.setBounds(vistJuego.x1, vistJuego.y1, 100, 100);
         vistJuego.getContentPane().repaint();
     }
-    public void balaEne(){
-        BalaEnemiga bE = new BalaEnemiga(vistJuego,b1);
-        bE.start();
-    }
-
-
-
 
     @Override
     public void keyReleased(KeyEvent e) {}
